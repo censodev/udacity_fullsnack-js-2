@@ -14,8 +14,14 @@ export default function TokenProvider(secret: string) {
             return false
         }
     }
+
+    const payload = (token: string): string | jwt.JwtPayload | null => {
+        return jwt.decode(token)
+    }
+
     return {
         generate,
         verify,
+        payload,
     }
 }
