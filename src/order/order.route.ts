@@ -18,9 +18,9 @@ router.post('/', authMiddleware, (req, res) => {
 })
 
 
-router.get('/me', authMiddleware, (req, res) => {
+router.get('/me', authMiddleware, async (req, res) => {
     const { id: uid } = authService.extractUserInfo(req)
-    res.json(orderRepo.findByUserId(uid))
+    res.json(await orderRepo.findByUserId(uid))
 })
 
 export default router
