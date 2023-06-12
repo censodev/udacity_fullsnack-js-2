@@ -40,11 +40,22 @@ export default function OrderRepo() {
         })
     }
 
+    async function findByUserId(uid: number): Promise<Order[] | null> {
+        return await prisma.order.findMany({
+            where: {
+                userId: {
+                    equals: uid,
+                }
+            }
+        })
+    }
+
     return {
         create,
         findMany,
         find,
         update,
         deleteOne,
+        findByUserId,
     }
 }

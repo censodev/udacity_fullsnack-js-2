@@ -2,6 +2,8 @@ import { Prisma, User } from "@prisma/client";
 import UserRepo from "../user/UserRepo";
 import TokenProvider from "./TokenProvider";
 import bcrypt from 'bcrypt';
+import express from 'express'
+import { JwtPayload } from "jsonwebtoken";
 
 export default function AuthService() {
     const tokenProvider = TokenProvider(process.env.JWT_SECRET ?? '')
@@ -29,13 +31,29 @@ export default function AuthService() {
         return null
     }
 
-    const userInfo = (token: string) => {
-        return tokenProvider.payload(token)
+    const verify = (token: string) => {
+        return tokenProvider.verify(token)
+    }
+
+    const userInfo = (token: string): JwtPayload => {
+        return tokenProvider.payload(token) as JwtPayload
+    }
+
+    const extractToken = (req: express.Request): string => {
+        return (req.headers.authorization ?? '').replace('Bearer ', '')
+    }
+
+    const extractUserInfo = (req: express.Request): JwtPayload => {
+        const token = extractToken(req)
+        return userInfo(token)
     }
 
     return {
         register,
         login,
+        verify,
         userInfo,
+        extractToken,
+        extractUserInfo,
     }
 }
