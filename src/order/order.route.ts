@@ -9,12 +9,12 @@ const router = express.Router()
 const orderRepo = OrderRepo()
 const authService = AuthService()
 
-router.post('/', authMiddleware, (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     const { id: uid } = authService.extractUserInfo(req)
     const { body } = req
-    body.status = 'CREATED'
+    body.status = 'active'
     body.userId = uid
-    res.json(orderRepo.create(body))
+    res.json(await orderRepo.create(body))
 })
 
 

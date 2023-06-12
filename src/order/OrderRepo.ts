@@ -1,16 +1,30 @@
-import { Order, Prisma, PrismaClient } from "@prisma/client";
+import { Order, OrderDetail, Prisma, PrismaClient } from "@prisma/client";
 
 export default function OrderRepo() {
     const prisma = new PrismaClient()
 
     async function create(model: Prisma.OrderCreateInput) {
         return await prisma.order.create({
-            data: model,
+            data: {
+                ...model,
+                details: {
+                    create: model.details as OrderDetail[]
+                }
+            },
         })
     }
 
     async function findMany(): Promise<Order[]> {
-        return await prisma.order.findMany()
+        return await prisma.order.findMany({
+            include: {
+                details: {
+                    select: {
+                        productId: true,
+                        qty: true,
+                    },
+                },
+            },
+        })
     }
 
     async function find(id: number): Promise<Order | null> {
@@ -19,7 +33,15 @@ export default function OrderRepo() {
                 id: {
                     equals: id,
                 }
-            }
+            },
+            include: {
+                details: {
+                    select: {
+                        productId: true,
+                        qty: true,
+                    },
+                },
+            },
         })
     }
 
@@ -46,7 +68,15 @@ export default function OrderRepo() {
                 userId: {
                     equals: uid,
                 }
-            }
+            },
+            include: {
+                details: {
+                    select: {
+                        productId: true,
+                        qty: true,
+                    },
+                },
+            },
         })
     }
 
