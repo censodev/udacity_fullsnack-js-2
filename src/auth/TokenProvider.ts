@@ -6,6 +6,7 @@ export default function TokenProvider(secret: string) {
     }
 
     const verify = (token: string): boolean => {
+        if (!token) return false
         try {
             jwt.verify(token, secret);
             return true
