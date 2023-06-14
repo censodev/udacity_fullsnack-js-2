@@ -12,6 +12,8 @@ POSTGRES_URL_NON_POOLING="postgres://default:PkUExAebv16J@ep-cold-fire-983412.ap
 JWT_SECRET=qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*
 ```
 
+Run ```npx prisma generate``` to generate Prisma Client code
+
 Run ```npm run watch``` to start application on port 3000
 
 Run ```npm run test``` to run the test suite
