@@ -3,6 +3,9 @@ import TokenProvider from "./TokenProvider";
 import bcrypt from 'bcrypt';
 import express from 'express'
 import { JwtPayload } from "jsonwebtoken";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export default function AuthService() {
     const tokenProvider = TokenProvider(process.env.JWT_SECRET ?? '')
@@ -26,7 +29,7 @@ export default function AuthService() {
             return null
         const valid = await bcrypt.compare(password, user.password)
         if (valid)
-            return tokenProvider.generate(user)
+            return  tokenProvider.generate(user)
         return null
     }
 

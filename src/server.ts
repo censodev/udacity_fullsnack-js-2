@@ -5,11 +5,13 @@ import orderRoute from './order/order.route'
 import userRoute from './user/user.route'
 import productRoute from './product/product.route'
 import { Pool } from 'pg'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const app: express.Application = express()
 const address: string = "0.0.0.0:3000"
 export const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
+    connectionString: process.env.POSTGRES_URL,
 })
 
 app.use(bodyParser.json())

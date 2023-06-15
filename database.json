@@ -1,5 +1,9 @@
 {
     "dev": {
-        "ENV": "POSTGRES_URL"
+        "driver": "pg",
+        "url": {
+            "ENV": "POSTGRES_URL"
+        },
+        "ssl": "true"
     }
 }

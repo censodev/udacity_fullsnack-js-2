@@ -9,37 +9,34 @@ export type Product = {
 export default () => {
     async function create(model: Product) {
         const client = await pool.connect()
-        await client.connect()
         try {
             const { name, price } = model
-            await client.query('BEGIN')
             const { rows: products } = await client.query<Product>(`
-                INSERT INTO Product(name, price) VALUES ($1, $2) RETURNING *;
+                INSERT INTO products(name, price) VALUES ($1, $2) RETURNING *;
             `, [name, price])
             return products[0]
         } catch (error) {
             console.log(error)
         } finally {
-            await client.release()
+            client.release()
         }
     }
 
     async function findMany(): Promise<Product[]> {
-        console.log('findMany')
         const client = await pool.connect()
         const { rows: products } = await client.query<Product>(`
-            SELECT * FROM Product;
+            SELECT * FROM products;
         `,)
-        await client.release()
+        client.release()
         return products
     }
 
     async function find(id: number): Promise<Product | null> {
         const client = await pool.connect()
         const { rows: products } = await client.query<Product>(`
-            SELECT * FROM Product WHERE id = $1;
+            SELECT * FROM products WHERE id = $1;
         `, [id])
-        await client.release()
+        client.release()
         return products.length > 0 ? products[0] : null
     }
 

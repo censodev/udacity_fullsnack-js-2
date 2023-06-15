@@ -21,13 +21,13 @@ export default function OrderRepo() {
             const { status, userId, details } = model
             await client.query('BEGIN')
             const res = await client.query<Order>(`
-                INSERT INTO Order(status, userId) VALUES ($1, $2) RETURNING *;
+                INSERT INTO orders(status, "userId") VALUES ($1, $2) RETURNING *;
             `, [status, userId])
             const newOrder = res.rows[0]
 
             const newDetails = await Promise.all(details.map(async detail => {
                 const res2 = await client.query<OrderDetail>(`
-                    INSERT INTO OrderDetail(qty, productId, orderId) VALUES ($1, $2, $3) RETURNING *;
+                    INSERT INTO order_details(qty, "productId", "orderId") VALUES ($1, $2, $3) RETURNING *;
                 `, [detail.qty, detail.productId, newOrder.id])
                 return res2.rows[0]
             }))
@@ -40,25 +40,24 @@ export default function OrderRepo() {
             console.log(error)
             await client.query('ROLLBACK')
         } finally {
-            await client.release()
+            client.release()
         }
     }
 
     async function findByUserId(uid: number): Promise<Order[]> {
         const client = await pool.connect()
-        await client.connect()
         try {
             const { rows: orders } = await client.query<Order>(`
-                SELECT o.* FROM Order o
-                JOIN OrderDetail d ON o.id = d.orderId
-                WHERE o.userId = $1;
+                SELECT o.* FROM orders o
+                JOIN order_details d ON o.id = d."orderId"
+                WHERE o."userId" = $1;
             `, [uid])
             return orders
         } catch (error) {
             console.log(error)
             return []
         } finally {
-            await client.release()
+            client.release()
         }
     }
 
