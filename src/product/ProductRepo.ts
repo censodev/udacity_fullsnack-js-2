@@ -1,50 +1,51 @@
-import { Product, Prisma, PrismaClient } from "@prisma/client";
+import { pool } from "../server"
+
+export type Product = {
+    id: number
+    name: string
+    price: number
+}
 
 export default () => {
-    const prisma = new PrismaClient()
-
-    async function create(model: Prisma.ProductCreateInput) {
-        return await prisma.product.create({
-            data: model,
-        })
+    async function create(model: Product) {
+        const client = await pool.connect()
+        await client.connect()
+        try {
+            const { name, price } = model
+            await client.query('BEGIN')
+            const { rows: products } = await client.query<Product>(`
+                INSERT INTO Product(name, price) VALUES ($1, $2) RETURNING *;
+            `, [name, price])
+            return products[0]
+        } catch (error) {
+            console.log(error)
+        } finally {
+            await client.release()
+        }
     }
 
     async function findMany(): Promise<Product[]> {
-        return await prisma.product.findMany()
+        console.log('findMany')
+        const client = await pool.connect()
+        const { rows: products } = await client.query<Product>(`
+            SELECT * FROM Product;
+        `,)
+        await client.release()
+        return products
     }
 
     async function find(id: number): Promise<Product | null> {
-        return await prisma.product.findFirst({
-            where: {
-                id: {
-                    equals: id,
-                }
-            }
-        })
-    }
-
-    async function update(id: number, model: Prisma.ProductUpdateInput) {
-        return await prisma.product.update({
-            where: {
-                id: id,
-            },
-            data: model,
-        })
-    }
-
-    async function deleteOne(id: number): Promise<Product | never> {
-        return await prisma.product.delete({
-            where: {
-                id: id,
-            },
-        })
+        const client = await pool.connect()
+        const { rows: products } = await client.query<Product>(`
+            SELECT * FROM Product WHERE id = $1;
+        `, [id])
+        await client.release()
+        return products.length > 0 ? products[0] : null
     }
 
     return {
         create,
         findMany,
         find,
-        update,
-        deleteOne,
     }
 }

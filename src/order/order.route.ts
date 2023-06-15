@@ -1,8 +1,6 @@
 import express from 'express'
 import authMiddleware from '../auth/auth.middleware'
 import AuthService from '../auth/AuthService'
-import { User } from '@prisma/client'
-import { JwtPayload } from 'jsonwebtoken'
 import OrderRepo from './OrderRepo'
 
 const router = express.Router()

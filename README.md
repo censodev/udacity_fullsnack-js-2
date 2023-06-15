@@ -7,8 +7,7 @@ Run ```npm i``` at root folder to install dependencies
 Create file ```.env``` with following properties:
 
 ```properties
-POSTGRES_PRISMA_URL="postgres://default:PkUExAebv16J@ep-cold-fire-983412-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb?pgbouncer=true&connect_timeout=15"
-POSTGRES_URL_NON_POOLING="postgres://default:PkUExAebv16J@ep-cold-fire-983412.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"
+POSTGRES_URL="postgres://default:PkUExAebv16J@ep-cold-fire-983412-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"
 JWT_SECRET=qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*
 ```
 
