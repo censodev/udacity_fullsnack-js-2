@@ -1,1 +1,4 @@
-/* Replace with your SQL commands */
+DROP TABLE IF EXISTS OrderDetail;
+DROP TABLE IF EXISTS Order;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS User;
