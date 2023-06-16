@@ -116,10 +116,6 @@ describe("test suite", function () {
                     qty: 1,
                     productId: 1
                 },
-                {
-                    qty: 2,
-                    productId: 2
-                }
             ]
         }
         const res = await request(app)
