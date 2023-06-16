@@ -8,7 +8,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default function AuthService() {
-    const tokenProvider = TokenProvider(process.env.JWT_SECRET ?? '')
+    const tokenProvider = TokenProvider('qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*')
     const userRepo = UserRepo()
 
     const register = async (model: User): Promise<User | undefined> => {

@@ -7,11 +7,15 @@ Run ```npm i``` at root folder to install dependencies
 Create file ```.env``` with following properties:
 
 ```properties
-POSTGRES_URL="postgres://default:PkUExAebv16J@ep-cold-fire-983412-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require"
-JWT_SECRET=qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=udacity_fullsnackjs
 ```
 
-Run ```npx prisma generate``` to generate Prisma Client code
+Run ```docker-compose up -d``` to run database up
+
+Run ```npx db-migrate up``` to migrate database
 
 Run ```npm run watch``` to start application on port 3000
 

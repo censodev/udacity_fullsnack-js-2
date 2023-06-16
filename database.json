@@ -1,9 +1,17 @@
 {
     "dev": {
         "driver": "pg",
-        "url": {
-            "ENV": "POSTGRES_URL"
+        "user": {
+            "ENV": "POSTGRES_USER"
         },
-        "ssl": "true"
+        "password": {
+            "ENV": "POSTGRES_PASSWORD"
+        },
+        "host": {
+            "ENV": "POSTGRES_HOST"
+        },
+        "database": {
+            "ENV": "POSTGRES_DB"
+        }
     }
 }

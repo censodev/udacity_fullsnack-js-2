@@ -30,7 +30,7 @@ describe("test suite", function () {
     })
 
     const uid = 1
-    const token = TokenProvider(process.env.JWT_SECRET ?? '').generate({ id: uid })
+    const token = TokenProvider('qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*').generate({ id: uid })
 
     it("GET /user - 401", async function () {
         await request(app)
