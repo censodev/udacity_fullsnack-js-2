@@ -1,6 +1,6 @@
-import TokenProvider from '../../src/auth/TokenProvider'
-import configs from '../../src/configs'
-import app from '../../src/server'
+import TokenProvider from '../auth/TokenProvider'
+import configs from '../configs'
+import app from '../server'
 import request from 'supertest'
 
 const uid = 1

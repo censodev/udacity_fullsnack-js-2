@@ -1,6 +1,6 @@
-import OrderRepo from "../../src/order/OrderRepo"
-import ProductRepo from "../../src/product/ProductRepo"
-import UserRepo from "../../src/user/UserRepo"
+import OrderRepo from "../order/OrderRepo"
+import ProductRepo from "../product/ProductRepo"
+import UserRepo from "../user/UserRepo"
 
 const userRepo = UserRepo()
 
