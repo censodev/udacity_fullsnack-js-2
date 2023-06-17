@@ -33,6 +33,22 @@ describe("test suite", function () {
     const uid = 1
     const token = TokenProvider(configs.JWT_SECRET).generate({ id: uid })
 
+    it("POST /user - 200", async function () {
+        const body = {
+            firstname: "Phuong",
+            lastname: "Bui",
+            password: "test",
+            username: "test"
+        }
+        const res = await request(app)
+            .post('/user')
+            .send(body)
+            .set('Accept', 'application/json')
+            .set('Authorization', `Bearer ${token}`)
+            .expect(200)
+        expect(res.body.id !== null)
+    })
+
     it("GET /user - 401", async function () {
         await request(app)
             .get('/user')
@@ -53,7 +69,6 @@ describe("test suite", function () {
             .get('/user/1')
             .set('Accept', 'application/json')
             .expect(401)
-        expect(res.body.id === 1)
     })
 
     it("GET /user/:id - 200", async function () {
@@ -65,15 +80,13 @@ describe("test suite", function () {
         expect(res.body.id === 1)
     })
 
-    it("POST /user - 200", async function () {
+    it("POST /product - 200", async function () {
         const body = {
-            firstname: "Phuong",
-            lastname: "Bui",
-            password: "test",
-            username: "test"
+            name: "product 1",
+            price: 2000
         }
         const res = await request(app)
-            .post('/user')
+            .post('/product')
             .send(body)
             .set('Accept', 'application/json')
             .set('Authorization', `Bearer ${token}`)
@@ -94,20 +107,6 @@ describe("test suite", function () {
             .set('Accept', 'application/json')
             .expect(200)
         expect(res.body.id === 1)
-    })
-
-    it("POST /product - 200", async function () {
-        const body = {
-            name: "product 2",
-            price: 2000
-        }
-        const res = await request(app)
-            .post('/product')
-            .send(body)
-            .set('Accept', 'application/json')
-            .set('Authorization', `Bearer ${token}`)
-            .expect(200)
-        expect(res.body.id !== null)
     })
 
     it("POST /order - 200", async function () {
