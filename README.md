@@ -1,8 +1,15 @@
 # Storefront Backend Project
 
-## Setup
+## Packages installation instructions
 
 Run ```npm i``` at root folder to install dependencies
+
+## What ports the backend and database are running on?
+
+- Application runs on port ```3000```
+- Database server runs on port ```5432```
+
+## How to setup and connect to the database?
 
 Create file ```.env``` with following properties:
 
