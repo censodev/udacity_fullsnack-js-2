@@ -6,10 +6,15 @@
   "scripts": {
     "start": "node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "NODE_ENV=test jasmine-ts",
+    "test:windows": "SET NODE_ENV=test&&jasmine-ts",
+    "test:linux": "NODE_ENV=test jasmine-ts",
     "tsc": "tsc",
-    "dev-db-up": "db-migrate db:create udacity_fullsnackjs_dev -e init && db-migrate up",
-    "test-db-up": "db-migrate db:create udacity_fullsnackjs_test -e init && db-migrate up -e test"
+    "db-create:dev": "db-migrate db:create udacity_fullsnackjs_dev -e init",
+    "db-migrate:dev": "db-migrate up -e dev",
+    "db-reset:dev": "db-migrate reset -e dev",
+    "db-create:test": "db-migrate db:create udacity_fullsnackjs_test -e init",
+    "db-migrate:test": "db-migrate up -e test",
+    "db-reset:test": "db-migrate reset -e test"
   },
   "author": "Udacity",
   "license": "ISC",

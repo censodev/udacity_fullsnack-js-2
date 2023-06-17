@@ -1,4 +1,5 @@
 import TokenProvider from '../../src/auth/TokenProvider'
+import configs from '../../src/configs'
 import app from '../../src/server'
 import request from 'supertest'
 
@@ -30,7 +31,7 @@ describe("test suite", function () {
     })
 
     const uid = 1
-    const token = TokenProvider('qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*').generate({ id: uid })
+    const token = TokenProvider(configs.JWT_SECRET).generate({ id: uid })
 
     it("GET /user - 401", async function () {
         await request(app)
