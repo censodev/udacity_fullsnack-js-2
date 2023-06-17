@@ -3,7 +3,10 @@ import configs from '../../src/configs'
 import app from '../../src/server'
 import request from 'supertest'
 
-describe("test suite", function () {
+const uid = 1
+const token = TokenProvider(configs.JWT_SECRET).generate({ id: uid })
+
+describe("Auth APIs test suite", function () {
     it("POST /auth/register - 200", async function () {
         const body = {
             firstname: "Phuong",
@@ -29,10 +32,9 @@ describe("test suite", function () {
             .set('Accept', 'application/json')
             .expect(200)
     })
+})
 
-    const uid = 1
-    const token = TokenProvider(configs.JWT_SECRET).generate({ id: uid })
-
+describe("User APIs test suite", function () {
     it("POST /user - 200", async function () {
         const body = {
             firstname: "Phuong",
@@ -79,7 +81,9 @@ describe("test suite", function () {
             .expect(200)
         expect(res.body.id === 1)
     })
+})
 
+describe("Product APIs test suite", function () {
     it("POST /product - 200", async function () {
         const body = {
             name: "product 1",
@@ -108,7 +112,9 @@ describe("test suite", function () {
             .expect(200)
         expect(res.body.id === 1)
     })
+})
 
+describe("Order APIs test suite", function () {
     it("POST /order - 200", async function () {
         const body = {
             details: [
@@ -142,5 +148,5 @@ describe("test suite", function () {
             .set('Accept', 'application/json')
             .set('Authorization', `Bearer ${token}`)
             .expect(200)
-    }, 10000)
+    })
 })
