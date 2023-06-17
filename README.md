@@ -68,7 +68,7 @@ After running, the application will be available on port ```3000```.
 
 We can use Postman collection [udacity_fullsnack-js-2.postman_collection.json](./udacity_fullsnack-js-2.postman_collection.json) to test the APIs afterwards.
 
-### Run the test suite
+### Run the test suites
 
 ```sh
 npm run test:windows    // for Windows OS
