@@ -15,28 +15,28 @@ const mockUser = {
 describe("UserRepo test suite", function () {
     it('user.create', async function () {
         const res = await userRepo.create(mockUser)
-        expect(res?.firstname === mockUser.firstname)
-        expect(res?.lastname === mockUser.lastname)
-        expect(res?.password === mockUser.password)
-        expect(res?.username === mockUser.username)
+        expect(res?.firstname).toEqual(mockUser.firstname)
+        expect(res?.lastname).toEqual(mockUser.lastname)
+        expect(res?.password).toEqual(mockUser.password)
+        expect(res?.username).toEqual(mockUser.username)
     })
 
     it('user.find', async function () {
         const res = await userRepo.find(1)
-        expect(res !== null)
+        expect(res).toBeDefined()
     })
 
     it('user.findMany', async function () {
         const res = await userRepo.findMany()
-        expect(res.length > 0)
+        expect(res.length).toBeGreaterThan(0)
     })
 
     it('user.findByUsername', async function () {
         const res = await userRepo.findByUsername(mockUser.username)
-        expect(res?.firstname === mockUser.firstname)
-        expect(res?.lastname === mockUser.lastname)
-        expect(res?.password === mockUser.password)
-        expect(res?.username === mockUser.username)
+        expect(res?.firstname).toEqual(mockUser.firstname)
+        expect(res?.lastname).toEqual(mockUser.lastname)
+        expect(res?.password).toEqual(mockUser.password)
+        expect(res?.username).toEqual(mockUser.username)
     })
 })
 
@@ -44,24 +44,24 @@ const productRepo = ProductRepo()
 const mockProduct = {
     id: 0,
     name: 'test01_prd_name',
-    price: 2,
+    price: 2000,
 }
 
 describe("ProductRepo test suite", function () {
     it('product.create', async function () {
         const res = await productRepo.create(mockProduct)
-        expect(res?.name === mockProduct.name)
-        expect(res?.price === mockProduct.price)
+        expect(res?.name).toEqual(mockProduct.name)
+        expect(res?.price).toEqual(mockProduct.price)
     })
 
     it('product.find', async function () {
         const res = await productRepo.find(1)
-        expect(res !== null)
+        expect(res).toBeDefined()
     })
 
     it('product.findMany', async function () {
         const res = await productRepo.findMany()
-        expect(res.length > 0)
+        expect(res.length).toBeGreaterThan(0)
     })
 })
 
@@ -83,14 +83,14 @@ const mockOrder = {
 describe("OrderRepo test suite", function () {
     it('order.create', async function () {
         const res = await orderRepo.create(mockOrder)
-        expect(res?.status === mockOrder.status)
-        expect(res?.userId === mockOrder.userId)
-        expect(res?.details[0].qty === mockOrder.details[0].qty)
-        expect(res?.details[0].productId === mockOrder.details[0].productId)
+        expect(res?.status).toEqual(mockOrder.status)
+        expect(res?.userId).toEqual(mockOrder.userId)
+        expect(res?.details[0].qty).toEqual(mockOrder.details[0].qty)
+        expect(res?.details[0].productId).toEqual(mockOrder.details[0].productId)
     })
 
     it('order.findByUserId', async function () {
         const res = await orderRepo.findByUserId(1)
-        expect(res.length > 0)
+        expect(res.length).toBeGreaterThan(0)
     })
 })

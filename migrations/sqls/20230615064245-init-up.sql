@@ -1,7 +1,7 @@
 CREATE TABLE products(
     "id" SERIAL PRIMARY KEY NOT NULL,
     "name" TEXT NOT NULL,
-    "price" DECIMAL(65, 30) NOT NULL
+    "price" double precision NOT NULL
 );
 CREATE TABLE users(
     "id" SERIAL PRIMARY KEY NOT NULL,
