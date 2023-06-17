@@ -3,12 +3,10 @@ import TokenProvider from "./TokenProvider";
 import bcrypt from 'bcrypt';
 import express from 'express'
 import { JwtPayload } from "jsonwebtoken";
-import dotenv from 'dotenv'
-
-dotenv.config()
+import configs from "../configs";
 
 export default function AuthService() {
-    const tokenProvider = TokenProvider('qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*')
+    const tokenProvider = TokenProvider(configs.JWT_SECRET)
     const userRepo = UserRepo()
 
     const register = async (model: User): Promise<User | undefined> => {
@@ -29,7 +27,7 @@ export default function AuthService() {
             return null
         const valid = await bcrypt.compare(password, user.password)
         if (valid)
-            return  tokenProvider.generate(user)
+            return tokenProvider.generate(user)
         return null
     }
 

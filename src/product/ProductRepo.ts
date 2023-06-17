@@ -1,4 +1,4 @@
-import { pool } from "../server"
+import { pool } from "../db"
 
 export type Product = {
     id: number
