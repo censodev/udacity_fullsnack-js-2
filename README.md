@@ -4,7 +4,7 @@ This repo contains the backend application for an eCommerce store front. It is a
 
 The database schema and and API route information can be found in the [requirements doc](REQUIREMENTS.md).
 
-## Libraries used
+## Libraries Used
 
 - Runtime: Node.js (TypeScript)
 - Web application framework: Express
@@ -12,9 +12,9 @@ The database schema and and API route information can be found in the [requireme
 - Database: Postgres
 - Testing: Jasmine and Supertest
 
-## Installation Instructions
+## Project Setup
 
-Run ```npm i``` at root folder to install dependencies
+### Environment variables
 
 Create file ```.env``` with following properties:
 
@@ -28,31 +28,64 @@ POSTGRES_TEST_DB=udacity_fullsnackjs_test
 JWT_SECRET=qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*
 ```
 
-Run ```docker-compose up -d``` to start database server up
+### Install dependencies
 
-### Ports
+```sh
+npm install
+```
 
-- Application runs on port ```3000```
-- Database server runs on port ```5432```
+### Start database server
 
-### Dev mode
+```sh
+docker-compose up -d
+```
 
-Run ```npm run db-create:dev``` to create dev database named ```udacity_fullsnackjs_dev```
+After running, the database server will be available on port ```5432```.
 
-Run ```npm run db-migrate:dev``` to migrate dev database
+Default user and password of the database server is defined by ```POSTGRES_USER``` and ```POSTGRES_PASSWORD``` in ```.env```.
 
-Run ```npm run watch``` to start application up
+### Create the databases (if not exist)
 
-Use Postman collection [udacity_fullsnack-js-2.postman_collection.json](./udacity_fullsnack-js-2.postman_collection.json) to test the APIs
+```sh
+npm run db-create:dev       // CREATE DATABASE udacity_fullsnackjs_dev
+npm run db-create:test      // CREATE DATABASE udacity_fullsnackjs_test
+```
 
-Run ```npm run db-reset:dev``` to reset dev database
+### Migrate databases
 
-### Test mode
+```sh
+npm run db-migrate:dev
+npm run db-migrate:test
+```
 
-Run ```npm run db-create:test``` to create test database named ```udacity_fullsnackjs_test```
+### Run the application up
 
-Run ```npm run db-migrate:test``` to migrate test database
+```sh
+npm run watch
+```
 
-Run ```npm run test:windows``` to run the test suite on Windows OS or ```npm run test:linux``` to run on Linux OS
+After running, the application will be available on port ```3000```.
 
-Run ```npm run db-reset:test``` to reset test database
+We can use Postman collection [udacity_fullsnack-js-2.postman_collection.json](./udacity_fullsnack-js-2.postman_collection.json) to test the APIs afterwards.
+
+### Run the test suite
+
+```sh
+npm run test:windows    // for Windows OS
+npm run test:linux      // for Linux OS
+```
+
+### Teardown
+
+```sh
+npm run db-reset:dev    // drop all tables in udacity_fullsnackjs_dev
+npm run db-reset:test   // drop all tables in udacity_fullsnackjs_test
+```
+
+## API Endpoints
+
+See [REQUIREMENTS.md](REQUIREMENTS.md) file.
+
+## Database schema
+
+See [REQUIREMENTS.md](REQUIREMENTS.md) file.
